@@ -11,10 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="IServices\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
 
-</Project>
+	  <ProjectReference Include="..\Entities\Entities.csproj" />
+    <ProjectReference Include="..\Logic\Logic.csproj" />
+    <ProjectReference Include="..\Resource\Resource.csproj" />	  <ProjectReference Include="..\Entities\Entities.csproj" />
+	  <ProjectReference Include="..\Logic\Logic.csproj" />
+	  </Project>
