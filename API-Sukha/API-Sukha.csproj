@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="IServices\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
