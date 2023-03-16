@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Logic.ILogic
 {
-    internal class ISecurityLogic
+    public interface ISecurityLogic
     {
+        bool ValidateUserCredentials(string userUsuario, string userPassword, int idRol);
     }
 }

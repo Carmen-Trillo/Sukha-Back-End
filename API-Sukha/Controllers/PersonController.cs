@@ -7,23 +7,23 @@ namespace API_Sukha.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class RolController : ControllerBase
+    public class PersonController : ControllerBase
     {
         private ISecurityServices _securityServices;
-        private IRolServices _rolServices;
-        public RolController(ISecurityServices securityServices, IRolServices rolServices)
+        private IPersonServices _personServices;
+        public PersonController(ISecurityServices securityServices, IPersonServices personServices)
         {
             _securityServices = securityServices;
-            _rolServices = rolServices;
+            _personServices = personServices;
         }
 
-        [HttpPost(Name = "InsertarRol")]
-        public int Post([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromBody] RolItem rolItem)
+        [HttpPost(Name = "InsertarPersona")]
+        public int Post([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromBody] PersonItem personItem)
         {
             var validCredentials = _securityServices.ValidateUserCredentials(userUsuario, userPassword, 1);
             if (validCredentials == true)
             {
-                return _rolServices.InsertRol(rolItem);
+                return _personServices.InsertPerson(personItem);
             }
             else
             {
@@ -31,13 +31,13 @@ namespace API_Sukha.Controllers
             }
         }
 
-        [HttpGet(Name = "VerRoles")]
-        public List<RolItem> GetAll([FromHeader] string userUsuario, [FromHeader] string userPassword)
+        [HttpGet(Name = "VerPersonas")]
+        public List<PersonItem> GetAllPersons([FromHeader] string userUsuario, [FromHeader] string userPassword)
         {
             var validCredentials = _securityServices.ValidateUserCredentials(userUsuario, userPassword, 1);
             if (validCredentials == true)
             {
-                return _rolServices.GetAllRoles();
+                return _personServices.GetAllPersons();
             }
             else
             {
@@ -45,13 +45,13 @@ namespace API_Sukha.Controllers
             }
         }
 
-        [HttpPatch(Name = "ModificarRol")]
-        public void Patch([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromBody] RolItem rolItem)
+        [HttpPatch(Name = "ModificarPersona")]
+        public void Patch([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromBody] PersonItem personItem)
         {
             var validCredentials = _securityServices.ValidateUserCredentials(userUsuario, userPassword, 1);
             if (validCredentials == true)
             {
-                _rolServices.UpdateRol(rolItem);
+                _personServices.UpdatePerson(personItem);
             }
             else
             {
@@ -59,18 +59,32 @@ namespace API_Sukha.Controllers
             }
         }
 
-        [HttpDelete(Name = "EliminarRol")]
+        [HttpDelete(Name = "EliminarPersona")]
         public void Delete([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromQuery] int id)
         {
             var validCredentials = _securityServices.ValidateUserCredentials(userUsuario, userPassword, 1);
             if (validCredentials == true)
             {
-                _rolServices.DeleteRol(id);
+                _personServices.DeletePerson(id);
             }
             else
             {
                 throw new InvalidCredentialException();
             }
         }
+
+        /*[HttpGet(Name = "MostrarPersonaPorFiltro")]
+        public List<PersonaItem> GetByCriteria([FromHeader] string usuarioUsuario, [FromHeader] string usuarioPassword, [FromQuery] PersonaFilter personaFilter)
+        {
+            var validCredentials = _securityServices.ValidateUsuarioCredentials(usuarioUsuario, usuarioPassword, 1);
+            if (validCredentials == true)
+            {
+                return _personaServices.GetPersonasByCriteria(personaFilter);
+            }
+            else
+            {
+                throw new InvalidCredentialException();
+            }
+        }*/
     }
 }

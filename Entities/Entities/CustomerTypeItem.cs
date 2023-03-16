@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entities.Entities
 {
-    public class RolItem
+    public class CustomerTypeItem
     {
-        public RolItem() { }
+        public CustomerTypeItem() { }
         public int Id { get; set; }
         public string TipoRol { get; set; }
         public bool IsActive { get; set; }

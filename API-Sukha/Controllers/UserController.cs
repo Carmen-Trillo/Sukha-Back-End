@@ -1,29 +1,31 @@
 ﻿using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Resource.RequestModels;
 using API_Sukha.IServices;
 using System.Security.Authentication;
+using Entities.SearchFilters;
 
 namespace API_Sukha.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class RolController : ControllerBase
+    public class UserController : ControllerBase
     {
         private ISecurityServices _securityServices;
-        private IRolServices _rolServices;
-        public RolController(ISecurityServices securityServices, IRolServices rolServices)
+        private IUserServices _userServices;
+        public UserController(ISecurityServices securityServices, IUserServices userServices)
         {
             _securityServices = securityServices;
-            _rolServices = rolServices;
+            _userServices = userServices;
         }
 
-        [HttpPost(Name = "InsertarRol")]
-        public int Post([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromBody] RolItem rolItem)
+        [HttpPost(Name = "InsertarUsuarios")]
+        public int Post([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromBody] NewUserRequest newUserRequest)
         {
             var validCredentials = _securityServices.ValidateUserCredentials(userUsuario, userPassword, 1);
             if (validCredentials == true)
             {
-                return _rolServices.InsertRol(rolItem);
+                return _userServices.InsertUser(newUserRequest);
             }
             else
             {
@@ -31,13 +33,13 @@ namespace API_Sukha.Controllers
             }
         }
 
-        [HttpGet(Name = "VerRoles")]
-        public List<RolItem> GetAll([FromHeader] string userUsuario, [FromHeader] string userPassword)
+        [HttpGet(Name = "VerUsuarios")]
+        public List<UserItem> GetAllUsers([FromHeader] string userUsuario, [FromHeader] string userPassword)
         {
             var validCredentials = _securityServices.ValidateUserCredentials(userUsuario, userPassword, 1);
             if (validCredentials == true)
             {
-                return _rolServices.GetAllRoles();
+                return _userServices.GetAllUsers();
             }
             else
             {
@@ -45,13 +47,13 @@ namespace API_Sukha.Controllers
             }
         }
 
-        [HttpPatch(Name = "ModificarRol")]
-        public void Patch([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromBody] RolItem rolItem)
+        [HttpGet(Name = "MostrarUsuarioPorFiltro")]
+        public List<UserItem> GetUsersByCriteria([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromQuery] UserFilter userFilter)
         {
             var validCredentials = _securityServices.ValidateUserCredentials(userUsuario, userPassword, 1);
             if (validCredentials == true)
             {
-                _rolServices.UpdateRol(rolItem);
+                return _userServices.GetUsersByCriteria(userFilter);
             }
             else
             {
@@ -59,13 +61,28 @@ namespace API_Sukha.Controllers
             }
         }
 
-        [HttpDelete(Name = "EliminarRol")]
+        [HttpPatch(Name = "ModificarUsuario")]
+        public void Patch([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromBody] UserItem userItem)
+        {
+            var validCredentials = _securityServices.ValidateUserCredentials(userUsuario, userPassword, 1);
+            if (validCredentials == true)
+            {
+                _userServices.UpdateUser(userItem);
+            }
+            else
+            {
+                throw new InvalidCredentialException();
+            }
+        }
+
+
+        [HttpDelete(Name = "EliminarUsuario")]
         public void Delete([FromHeader] string userUsuario, [FromHeader] string userPassword, [FromQuery] int id)
         {
             var validCredentials = _securityServices.ValidateUserCredentials(userUsuario, userPassword, 1);
             if (validCredentials == true)
             {
-                _rolServices.DeleteRol(id);
+                _userServices.DeleteUser(id);
             }
             else
             {

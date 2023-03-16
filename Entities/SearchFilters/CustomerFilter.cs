@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Entities
+namespace Entities.SearchFilters
 {
-    public class RolItem
+    public class CustomerFilter
     {
-        public RolItem() { }
-        public int Id { get; set; }
-        public string TipoRol { get; set; }
         public bool IsActive { get; set; }
+        public DateTime? InsertDateFrom { get; set; }
+        public DateTime? InsertDateTo { get; set; }
     }
 }
