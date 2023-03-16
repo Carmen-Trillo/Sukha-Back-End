@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using API_Sukha.IServices;
 using System.Security.Authentication;
-using API_Sukha.IServices;
 
 namespace API_Sukha.Controllers
 {
