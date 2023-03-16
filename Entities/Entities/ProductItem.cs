@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using API.Enums;
 
 namespace Entities.Entities
 {
@@ -26,7 +27,8 @@ namespace Entities.Entities
         public DateTime? UpdateDate { get; set; }
         public bool IsActive { get; set; }
         public bool IsPublic { get; private set; }
-     
+        public FileExtensionEnum FileExtension { get; set; }
+
     }
 }
 
