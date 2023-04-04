@@ -20,7 +20,7 @@ Figma: https://www.figma.com/file/s446W6w5EkREz68W51YCKj/E-commerce-Full-Star?no
 <li>React</li>
 <li>Boostrap 5</li>
 <li>C#</li>
-<li>Firgma</li>
+<li>Figma</li>
 <li>Trello</li>
 </ul>
 
